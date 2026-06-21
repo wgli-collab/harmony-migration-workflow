@@ -1,12 +1,24 @@
-# Group B — Dynamic Workflow for HarmonyOS Library Migration
+# HarmonyOS Migration Dynamic Workflow — 鸿蒙化迁移动态工作流
 
-## Overview
+> [中文文章](./ARTICLE_zh.md) | [English Article](./ARTICLE_en.md)
 
-This directory contains the complete **Dynamic Workflow** setup for migrating open-source TypeScript/JavaScript libraries to HarmonyOS ArkTS. The system combines AI agents with human-in-the-loop gatekeepers in a 6-phase, 3-loop architecture.
+**中文**：这是一套基于 **Dynamic Workflow + 收敛 Loop + 角色分离 Session + Gatekeeper** 的 AI 长工程可靠执行系统。针对当前 LLM 在长文本长任务中的四个结构性痛点——目标漂移、子 Agent 中立性丧失、记忆脆断、注意力熵增——提供了系统化的工程解决方案。已成功完成 axios、date-fns、dayjs、semver 等多个 HarmonyOS 三方库的完整迁移。
+
+**English**: A reliable long-duration AI engineering system built on **Dynamic Workflow + Convergent Loops + Role-Separated Sessions + Gatekeeper**. Addresses four structural LLM pain points in long-context tasks — objective drift, sub-agent neutrality loss, memory brittleness, and attention entropy — with systematic engineering solutions. Successfully completed full migrations of axios, date-fns, dayjs, semver, and other libraries to HarmonyOS ArkTS.
+
+> 📄 详细设计哲学与业界对照见 **[ARTICLE_zh.md](./ARTICLE_zh.md)**（中文）/ **[ARTICLE_en.md](./ARTICLE_en.md)**（English）— See the articles for design philosophy and industry context.
 
 ---
 
-## Full Architecture
+## Overview / 概述
+
+This directory contains the complete **Dynamic Workflow** setup for migrating open-source TypeScript/JavaScript libraries to HarmonyOS ArkTS. The system combines AI agents with human-in-the-loop gatekeepers in a 6-phase, 3-loop architecture.
+
+本目录包含将开源 TypeScript/JavaScript 三方库迁移到 HarmonyOS ArkTS 的完整 **Dynamic Workflow** 系统。系统将 AI agent 与人在回路中的门控机制结合，构建了 6 阶段、3 循环的架构。
+
+---
+
+## Full Architecture / 完整架构
 
 ```
                         ┌──────────────────┐
@@ -346,34 +358,35 @@ Throughout: any non-code question → consult 07-environment.md
 
 ---
 
-## Design Principles
+## Design Principles / 设计原则
 
-1. **Executor prompt**: task spec only. No ArkTS rules injected — compliance enforced downstream by Auditor.
-2. **Auditor rules**: from official HarmonyOS public documentation (S1-S8 in 03-auditor.md) + community-verified sources (E1-E2). All rules must be cited by ID (R1-R29).
-3. **Progressive Auditor**: 1st audit = violations only. 2nd+ audit = violations + fix suggestions.
-4. **File gating**: One file at a time, human-controlled pacing. No batch generation unless T3 (Template C, G1 streak=5) is triggered and human explicitly approves.
-5. **Dynamic intervention**: pattern detection triggers human-in-the-loop decisions (Templates A/B/C/D).
-6. **Convergence-based exit**: Loop 3 exits on monotonic error decrease + all-pass, not a fixed round count.
-7. **Token budget**: hard constraints with human checkpoints at every phase boundary.
-8. **Support isolation**: 07 handles all non-code questions; 01-06 stay unpolluted.
-9. **Two-stage audit**: 08 runs after Phase 3 — Stage 1: L1+L2 full scan (breadth coverage); Stage 2: P1 semantic + P2 structural + P3 gap-fill narrow-focus deep scan (depth coverage). Independent from 03's per-file compliance checks. Two stages are complementary — Stage 1 ensures nothing is missed by category, Stage 2 ensures nothing is skipped by attention failure.
+1. **Executor prompt / 执行者提示词**: task spec only. No ArkTS rules injected — compliance enforced downstream by Auditor. / 仅含任务规格，不注入 ArkTS 规则——合规由下游 Auditor 强制执行。
+2. **Auditor rules / 审计规则**: from official HarmonyOS public documentation (S1-S8 in 03-auditor.md) + community-verified sources (E1-E2). All rules must be cited by ID (R1-R29). / 来源于鸿蒙官方公开文档 + 社区验证来源，所有规则必须按 ID 引用。
+3. **Progressive Auditor / 渐进式审计**: 1st audit = violations only. 2nd+ audit = violations + fix suggestions. / 首次审计只报违规，二次以上加修复建议。
+4. **File gating / 文件门控**: One file at a time, human-controlled pacing. No batch generation unless T3 (Template C, G1 streak=5) is triggered and human explicitly approves. / 逐文件推进，人工控制节奏。除非 T3 触发且人工批准，否则不批量生成。
+5. **Dynamic intervention / 动态干预**: pattern detection triggers human-in-the-loop decisions (Templates A/B/C/D). / 模式检测触发人工在回路中的干预决策。
+6. **Convergence-based exit / 收敛驱动退出**: Loop 3 exits on monotonic error decrease + all-pass, not a fixed round count. / Loop 3 以单调递减 + 全部通过为退出条件，不固定轮数。
+7. **Token budget / Token 预算**: hard constraints with human checkpoints at every phase boundary. / 硬约束，每个 Phase 边界人工检查。
+8. **Support isolation / 支撑隔离**: 07 handles all non-code questions; 01-06 stay unpolluted. / 07 处理所有非代码问题，01-06 保持洁净。
+9. **Two-stage audit / 两阶段审计**: 08 runs after Phase 3 — Stage 1: L1+L2 full scan (breadth coverage); Stage 2: P1 semantic + P2 structural + P3 gap-fill narrow-focus deep scan (depth coverage). Independent from 03's per-file compliance checks. / 08 在 Phase 3 后运行，两阶段互补——广度覆盖 + 深度聚焦，独立于 03 的逐文件合规检查。
+10. **Two-session role separation / 双 Session 角色分离**: Session 1 (author, Phase 1-3) writes code; Session 2 (independent auditor, Phase 4-6) audits it. The auditor has never seen the plan document or written any code. / Session 1（作者）写代码，Session 2（独立审计员）审计——审计员从未见过计划文档、从未写过一行代码。
 
-## 参数化
+## Parameters / 参数化
 
-> **占位符约定**：`{{变量名}}` = AI 模板中替换的运行时参数。`【变量名】` = 操作员填入的实际值。两种语法等价，选择其一即可。
+> **占位符约定 / Placeholder convention**：`{{变量名}}` = AI 模板中替换的运行时参数。`【变量名】` = 操作员填入的实际值。两种语法等价，选择其一即可。
 
-每个库迁移前，替换以下占位符：
+每个库迁移前，替换以下占位符 / Replace these placeholders before each migration：
 
-| 变量 | 说明 | 示例 | 填写时机 |
+| 变量 / Variable | 说明 / Description | 示例 / Example | 填写时机 / When |
 |------|------|------|---------|
-| `{{LEVEL}}` | 级别标签 | L3 | 迁移前 |
-| `{{LIBRARY_NAME}}` | 目标库名称 | axios | 迁移前 |
-| `{{SOURCE_INSTRUCTION}}` | 源码获取指令（按来源选择模板，见 START_HERE.md） | 见 START_HERE.md | 迁移前 |
-| `{{ARKTS_PROJECT}}` | ArkTS 项目输出目录 | `~/output/axios-arkts/` | 迁移前 |
-| `{{WORK_DIR}}` | 工作目录，存放克隆的源码 | `~/harmony-migration/` | 迁移前 |
-| `{{MATERIAL_DIR}}` | Group B 物料目录，01-08.md + configs/ | `~/harmony-migration/group-b/` | 迁移前 |
-| `{{TOKEN_BUDGET}}` | Token 预算 | 500K | 迁移前 |
-| `{{FILE_COUNT}}` | 预估文件数（Plan 产出后回填精确值） | ~28 | Phase 1 后 |
-| `{{API_COUNT}}` | 预估 API 数（Plan 产出后回填精确值） | TBD | Phase 1 后 |
+| `{{LEVEL}}` | 级别标签 / Level label | L3 | 迁移前 / Before migration |
+| `{{LIBRARY_NAME}}` | 目标库名称 / Target library name | axios | 迁移前 / Before migration |
+| `{{SOURCE_INSTRUCTION}}` | 源码获取指令 / Source fetch instructions（见 START_HERE.md） | 见 START_HERE.md | 迁移前 / Before migration |
+| `{{ARKTS_PROJECT}}` | ArkTS 项目输出目录 / Output directory | `~/output/axios-arkts/` | 迁移前 / Before migration |
+| `{{WORK_DIR}}` | 工作目录 / Working directory | `~/harmony-migration/` | 迁移前 / Before migration |
+| `{{MATERIAL_DIR}}` | Group B 物料目录 / Materials directory (01-08.md + configs/) | `~/harmony-migration/group-b/` | 迁移前 / Before migration |
+| `{{TOKEN_BUDGET}}` | Token 预算 / Token budget | 500K | 迁移前 / Before migration |
+| `{{FILE_COUNT}}` | 预估文件数 / Estimated file count | ~28 | Phase 1 后 / After Phase 1 |
+| `{{API_COUNT}}` | 预估 API 数 / Estimated API count | TBD | Phase 1 后 / After Phase 1 |
 
-Same Group B materials (01-08 + configs) for any target library.
+Same Group B materials (01-08 + configs) for any target library. / 同一套 Group B 物料（01-08 + configs）可用于任意目标库。
