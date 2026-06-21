@@ -6,7 +6,7 @@
 
 **English**: A reliable long-duration AI engineering system built on **Dynamic Workflow + Convergent Loops + Role-Separated Sessions + Gatekeeper**. Addresses four structural LLM pain points in long-context tasks — objective drift, sub-agent neutrality loss, memory brittleness, and attention entropy — with systematic engineering solutions. Successfully completed full migrations of axios, date-fns, dayjs, semver, and other libraries to HarmonyOS ArkTS.
 
-> 📄 详细设计哲学与业界对照见 **[ARTICLE_zh.md](./ARTICLE_zh.md)**（中文）/ **[ARTICLE_en.md](./ARTICLE_en.md)**（English）— See the articles for design philosophy and industry context.
+> 📄 详细设计原理与对照见 **[ARTICLE_zh.md](./ARTICLE_zh.md)**（中文）/ **[ARTICLE_en.md](./ARTICLE_en.md)**（English）— See the articles for design philosophy and industry context.
 
 ---
 
