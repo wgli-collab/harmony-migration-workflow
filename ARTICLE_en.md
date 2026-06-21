@@ -1,6 +1,8 @@
 # Enhancing "Dynamic Workflow + Convergent Loops + Role-Separated Sessions + Gatekeeper" in HarmonyOS Third-Party Library Migration
 
 > **Abstract**: Getting Claude to write a function is easy. Getting Claude to sustain reliability across hours, dozens of files, hundreds of functions, and multiple distinct roles — that's a challenge of an entirely different magnitude. Based on real-world HarmonyOS ArkTS library migration projects, we identified four fundamental pain points in long-context, long-duration AI engineering: **objective drift**, **sub-agent neutrality loss**, **memory brittleness**, and **attention entropy**. We present a systematic solution built on Dynamic Workflow foundations, integrating convergent loops, role-separated sessions, and gatekeepers.
+>
+> **Runtime Environment**: All engineering practices described in this article were run on a hybrid model configuration of **Claude Code (VS Code extension) + DeepSeek V4 Pro**. Claude handles workflow orchestration, audit judgment, and gatekeeping decisions; DeepSeek V4 Pro handles large-scale code generation and translation tasks. This multi-model combination balances quality, speed, and cost, and is our recommended production configuration. All prompt documents and workflow designs remain model-agnostic — readers may substitute other model combinations, but should re-validate gate trigger thresholds for their specific setup.
 
 ---
 

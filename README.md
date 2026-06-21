@@ -2,9 +2,9 @@
 
 > [中文文章](./ARTICLE_zh.md) | [English Article](./ARTICLE_en.md)
 
-**中文**：这是一套基于 **Dynamic Workflow + 收敛 Loop + 角色分离 Session + Gatekeeper** 的 AI 长工程可靠执行系统。针对当前 LLM 在长文本长任务中的四个结构性痛点——目标漂移、子 Agent 中立性丧失、记忆脆断、注意力熵增——提供了系统化的工程解决方案。已成功完成 axios、date-fns、dayjs、semver 等多个 HarmonyOS 三方库的完整迁移。
+**中文**：这是一套基于 **Dynamic Workflow + 收敛 Loop + 角色分离 Session + Gatekeeper** 的 AI 长工程可靠执行系统。针对当前 LLM 在长文本长任务中的四个结构性痛点——目标漂移、子 Agent 中立性丧失、记忆脆断、注意力熵增——提供了系统化的工程解决方案。基于 **Claude Code（VS Code 插件）+ DeepSeek V4 Pro** 混合模型配置运行，已成功完成 axios、date-fns、dayjs、semver 等多个 HarmonyOS 三方库的完整迁移。
 
-**English**: A reliable long-duration AI engineering system built on **Dynamic Workflow + Convergent Loops + Role-Separated Sessions + Gatekeeper**. Addresses four structural LLM pain points in long-context tasks — objective drift, sub-agent neutrality loss, memory brittleness, and attention entropy — with systematic engineering solutions. Successfully completed full migrations of axios, date-fns, dayjs, semver, and other libraries to HarmonyOS ArkTS.
+**English**: A reliable long-duration AI engineering system built on **Dynamic Workflow + Convergent Loops + Role-Separated Sessions + Gatekeeper**. Addresses four structural LLM pain points in long-context tasks — objective drift, sub-agent neutrality loss, memory brittleness, and attention entropy — with systematic engineering solutions. Runs on a hybrid **Claude Code (VS Code extension) + DeepSeek V4 Pro** model configuration. Successfully completed full migrations of axios, date-fns, dayjs, semver, and other libraries to HarmonyOS ArkTS.
 
 > 📄 详细设计原理与对照见 **[ARTICLE_zh.md](./ARTICLE_zh.md)**（中文）/ **[ARTICLE_en.md](./ARTICLE_en.md)**（English）— See the articles for design philosophy and industry context.
 
