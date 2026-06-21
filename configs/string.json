@@ -1,0 +1,8 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Test entry module" },
+    { "name": "EntryAbility_desc", "value": "Main entry ability" },
+    { "name": "EntryAbility_label", "value": "Test App" },
+    { "name": "internet_reason", "value": "Need network access for HTTP tests" }
+  ]
+}

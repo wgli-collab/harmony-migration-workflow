@@ -1,0 +1,10 @@
+{
+  "modelVersion": "6.1.1",
+  "name": "library",
+  "version": "1.0.0",
+  "description": "ArkTS library",
+  "main": "Index.ets",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}

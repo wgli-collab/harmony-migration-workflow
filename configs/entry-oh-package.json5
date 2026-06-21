@@ -1,0 +1,12 @@
+{
+  "modelVersion": "6.1.1",
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Test entry module",
+  "main": "",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "library": "file:../library"
+  }
+}
